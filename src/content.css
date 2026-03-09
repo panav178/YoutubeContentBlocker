@@ -1,0 +1,81 @@
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-rich-grid-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"] #contents,
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"] #primary,
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer #primary {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"]::before,
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer::before {
+  content: "Home feed hidden for focus";
+  display: block;
+  margin: 48px auto;
+  max-width: 560px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: rgba(15, 15, 15, 0.92);
+  color: #fff;
+  text-align: center;
+  font: 500 16px/1.4 Arial, sans-serif;
+}
+
+:root.ycb-root:not(.ycb-replace-blocked).ycb-page-home ytd-browse[page-subtype="home"]::before,
+:root.ycb-root:not(.ycb-replace-blocked).ycb-page-home ytd-two-column-browse-results-renderer::before {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch #secondary,
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch #related,
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-comments ytd-comments,
+:root.ycb-root.ycb-enabled.ycb-hide-comments #comments {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-endscreen-content,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-element,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .html5-endscreen {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-rich-shelf-renderer[is-shorts],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-reel-shelf-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-rich-section-renderer ytd-reel-shelf-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-guide-entry-renderer a[href="/shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-mini-guide-entry-renderer a[href="/shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts a[href^="/shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-reel-video-renderer {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-guide-entry-renderer a[href="/feed/explore"],
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-mini-guide-entry-renderer a[href="/feed/explore"],
+:root.ycb-root.ycb-enabled.ycb-hide-explore a[href="/feed/explore"] {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts ytd-app {
+  visibility: hidden !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts body::before,
+:root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts html::before {
+  content: "Shorts are hidden for focus";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #0f0f0f;
+  color: #fff;
+  text-align: center;
+  font: 600 18px/1.4 Arial, sans-serif;
+}
+
+:root.ycb-root.ycb-enabled [data-ycb-hidden="true"] {
+  display: none !important;
+}

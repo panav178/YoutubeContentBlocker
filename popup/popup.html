@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouTube Content Blocker</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup__header">
+        <h1>YouTube Content Blocker</h1>
+        <p>Hide distracting YouTube surfaces and keep intentional viewing intact.</p>
+      </header>
+
+      <section class="popup__section">
+        <label class="toggle">
+          <input id="enabled" type="checkbox">
+          <span>Enable blocker</span>
+        </label>
+      </section>
+
+      <section class="popup__section">
+        <label class="toggle">
+          <input id="hideHomeFeed" type="checkbox">
+          <span>Hide home feed</span>
+        </label>
+        <label class="toggle">
+          <input id="hideSidebarRecommendations" type="checkbox">
+          <span>Hide watch-page recommendations</span>
+        </label>
+        <label class="toggle">
+          <input id="hideShorts" type="checkbox">
+          <span>Hide Shorts</span>
+        </label>
+        <label class="toggle">
+          <input id="hideComments" type="checkbox">
+          <span>Hide comments</span>
+        </label>
+        <label class="toggle">
+          <input id="hideEndscreen" type="checkbox">
+          <span>Hide end-screen suggestions</span>
+        </label>
+        <label class="toggle">
+          <input id="hideExplore" type="checkbox">
+          <span>Hide Explore</span>
+        </label>
+        <label class="toggle">
+          <input id="replaceBlockedAreas" type="checkbox">
+          <span>Show focus message where content is hidden</span>
+        </label>
+      </section>
+
+      <footer class="popup__footer">
+        Refresh open YouTube tabs if a setting does not update instantly.
+      </footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
