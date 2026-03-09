@@ -24,32 +24,16 @@ const SETTING_CLASS_MAP = {
 
 let currentSettings = { ...DEFAULT_SETTINGS };
 let pageMarker = "";
+let navDebounce = null;
 
 function normalizePathname(pathname) {
-  if (pathname === "/") {
-    return "home";
-  }
-
-  if (pathname.startsWith("/watch")) {
-    return "watch";
-  }
-
-  if (pathname.startsWith("/shorts")) {
-    return "shorts";
-  }
-
-  if (pathname.startsWith("/results")) {
-    return "search";
-  }
-
-  if (pathname.startsWith("/feed/explore") || pathname.startsWith("/explore")) {
-    return "explore";
-  }
-
-  if (pathname.startsWith("/feed/subscriptions")) {
-    return "subscriptions";
-  }
-
+  if (pathname === "/") return "home";
+  if (pathname.startsWith("/watch")) return "watch";
+  if (pathname.startsWith("/shorts")) return "shorts";
+  if (pathname.startsWith("/results")) return "search";
+  if (pathname.startsWith("/feed/explore") || pathname.startsWith("/explore")) return "explore";
+  if (pathname.startsWith("/feed/trending") || pathname.startsWith("/trending")) return "explore";
+  if (pathname.startsWith("/feed/subscriptions")) return "subscriptions";
   return "other";
 }
 
@@ -61,7 +45,7 @@ function syncPageMarker() {
   const root = rootElement();
   const nextMarker = `${PAGE_CLASS_PREFIX}${normalizePathname(window.location.pathname)}`;
 
-  if (pageMarker) {
+  if (pageMarker && pageMarker !== nextMarker) {
     root.classList.remove(pageMarker);
   }
 
@@ -73,7 +57,6 @@ function syncPageMarker() {
 function applySettings(settings) {
   currentSettings = { ...DEFAULT_SETTINGS, ...settings };
   const root = rootElement();
-
   root.classList.add(ROOT_CLASS);
 
   Object.entries(SETTING_CLASS_MAP).forEach(([key, className]) => {
@@ -84,20 +67,22 @@ function applySettings(settings) {
   syncNavHiding();
 }
 
-function hideElement(element) {
-  element.setAttribute("data-ycb-hidden", "true");
-  element.setAttribute("aria-hidden", "true");
-  element.style.setProperty("display", "none", "important");
+function hideElement(el) {
+  if (el.getAttribute("data-ycb-hidden") === "true") return;
+  el.setAttribute("data-ycb-hidden", "true");
+  el.setAttribute("aria-hidden", "true");
+  el.style.setProperty("display", "none", "important");
 }
 
-function showElement(element) {
-  element.removeAttribute("data-ycb-hidden");
-  element.removeAttribute("aria-hidden");
-  element.style.removeProperty("display");
+function showElement(el) {
+  if (!el.hasAttribute("data-ycb-hidden")) return;
+  el.removeAttribute("data-ycb-hidden");
+  el.removeAttribute("aria-hidden");
+  el.style.removeProperty("display");
 }
 
-function itemText(element) {
-  return (element.textContent || "").trim().toLowerCase();
+function itemText(el) {
+  return (el.textContent || "").trim().toLowerCase();
 }
 
 function syncNavHiding() {
@@ -111,8 +96,14 @@ function syncNavHiding() {
 
   navEntries.forEach((entry) => {
     const text = itemText(entry);
-    const shouldHideShorts = currentSettings.enabled && currentSettings.hideShorts && text.includes("shorts");
-    const shouldHideExplore = currentSettings.enabled && currentSettings.hideExplore && text.includes("explore");
+    const href = (entry.querySelector("a") || {}).href || "";
+
+    const isShorts = text.includes("shorts") || href.includes("/shorts");
+    const isExplore = text.includes("explore") || text.includes("trending") ||
+                      href.includes("/feed/explore") || href.includes("/feed/trending");
+
+    const shouldHideShorts = currentSettings.enabled && currentSettings.hideShorts && isShorts;
+    const shouldHideExplore = currentSettings.enabled && currentSettings.hideExplore && isExplore;
 
     if (shouldHideShorts || shouldHideExplore) {
       hideElement(entry);
@@ -132,12 +123,9 @@ async function loadSettings() {
 
 function observeStorageChanges() {
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== "sync") {
-      return;
-    }
+    if (area !== "sync") return;
 
     const nextSettings = { ...currentSettings };
-
     Object.entries(changes).forEach(([key, value]) => {
       nextSettings[key] = value.newValue;
     });
@@ -146,33 +134,44 @@ function observeStorageChanges() {
   });
 }
 
-function installNavigationObservers() {
-  const rerender = () => {
+function debouncedRerender() {
+  if (navDebounce) return;
+  navDebounce = requestAnimationFrame(() => {
+    navDebounce = null;
     syncPageMarker();
     syncNavHiding();
-  };
+  });
+}
 
-  window.addEventListener("yt-navigate-finish", rerender, true);
-  window.addEventListener("popstate", rerender, true);
+function installNavigationObservers() {
+  window.addEventListener("yt-navigate-finish", debouncedRerender, true);
+  window.addEventListener("yt-page-data-updated", debouncedRerender, true);
+  window.addEventListener("popstate", debouncedRerender, true);
 
   const originalPushState = history.pushState;
   history.pushState = function pushState(...args) {
     const result = originalPushState.apply(this, args);
-    queueMicrotask(rerender);
+    queueMicrotask(debouncedRerender);
     return result;
   };
 
   const originalReplaceState = history.replaceState;
   history.replaceState = function replaceState(...args) {
     const result = originalReplaceState.apply(this, args);
-    queueMicrotask(rerender);
+    queueMicrotask(debouncedRerender);
     return result;
   };
 }
 
 function installMutationObserver() {
+  let mutationDebounce = null;
+
   const observer = new MutationObserver(() => {
-    syncNavHiding();
+    if (mutationDebounce) return;
+    mutationDebounce = requestAnimationFrame(() => {
+      mutationDebounce = null;
+      syncNavHiding();
+    });
   });
 
   observer.observe(document.documentElement, {

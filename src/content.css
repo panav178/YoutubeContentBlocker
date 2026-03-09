@@ -1,69 +1,109 @@
+/* ═══════════════════════════════════════════════════════════
+   YouTube Content Blocker — Content Styles
+   Applied via class flags on <html> by content.js
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── HOME FEED ───────────────────────────────────────────── */
 :root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-rich-grid-renderer,
 :root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"] #contents,
 :root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"] #primary,
-:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer #primary {
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer #primary,
+:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-rich-grid-renderer #contents {
   display: none !important;
 }
 
-:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"]::before,
-:root.ycb-root.ycb-enabled.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer::before {
-  content: "Home feed hidden for focus";
+/* Focus placeholder for home */
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-home-feed.ycb-page-home ytd-browse[page-subtype="home"]::before,
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-home-feed.ycb-page-home ytd-two-column-browse-results-renderer::before {
+  content: "Home feed hidden — use Search to find what you need";
   display: block;
-  margin: 48px auto;
-  max-width: 560px;
-  padding: 20px 24px;
-  border-radius: 16px;
-  background: rgba(15, 15, 15, 0.92);
-  color: #fff;
+  margin: 80px auto 0;
+  max-width: 420px;
+  padding: 24px 32px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
   text-align: center;
-  font: 500 16px/1.4 Arial, sans-serif;
+  font: 500 15px/1.5 "YouTube Sans", "Roboto", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
-:root.ycb-root:not(.ycb-replace-blocked).ycb-page-home ytd-browse[page-subtype="home"]::before,
-:root.ycb-root:not(.ycb-replace-blocked).ycb-page-home ytd-two-column-browse-results-renderer::before {
-  display: none !important;
+/* Light-theme placeholder */
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-home-feed.ycb-page-home[dark="false"] ytd-browse[page-subtype="home"]::before,
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-home-feed.ycb-page-home:not([dark]) ytd-browse[page-subtype="home"]::before {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.45);
 }
 
+/* ── SIDEBAR RECOMMENDATIONS (watch page) ────────────────── */
 :root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch #secondary,
 :root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch #related,
-:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch ytd-watch-next-secondary-results-renderer {
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch ytd-watch-next-secondary-results-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch ytd-compact-video-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch ytd-compact-radio-renderer {
   display: none !important;
 }
 
+/* Expand the video player area when sidebar is hidden */
+:root.ycb-root.ycb-enabled.ycb-hide-sidebar.ycb-page-watch #primary {
+  max-width: 100% !important;
+}
+
+/* ── COMMENTS ────────────────────────────────────────────── */
 :root.ycb-root.ycb-enabled.ycb-hide-comments ytd-comments,
-:root.ycb-root.ycb-enabled.ycb-hide-comments #comments {
+:root.ycb-root.ycb-enabled.ycb-hide-comments #comments,
+:root.ycb-root.ycb-enabled.ycb-hide-comments ytd-comment-thread-renderer,
+:root.ycb-root.ycb-enabled.ycb-hide-comments ytd-comments-header-renderer {
   display: none !important;
 }
 
+/* ── END-SCREEN ──────────────────────────────────────────── */
 :root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-endscreen-content,
 :root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-element,
-:root.ycb-root.ycb-enabled.ycb-hide-endscreen .html5-endscreen {
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .html5-endscreen,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-covering-overlay,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-covering-image,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-video,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-playlist,
+:root.ycb-root.ycb-enabled.ycb-hide-endscreen .ytp-ce-channel {
   display: none !important;
 }
 
+/* ── SHORTS ──────────────────────────────────────────────── */
+/* Shorts shelves in feeds */
 :root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-rich-shelf-renderer[is-shorts],
 :root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-reel-shelf-renderer,
-:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-rich-section-renderer ytd-reel-shelf-renderer,
-:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-guide-entry-renderer a[href="/shorts"],
-:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-mini-guide-entry-renderer a[href="/shorts"],
-:root.ycb-root.ycb-enabled.ycb-hide-shorts a[href^="/shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
 :root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-reel-video-renderer {
   display: none !important;
 }
 
-:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-guide-entry-renderer a[href="/feed/explore"],
-:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-mini-guide-entry-renderer a[href="/feed/explore"],
-:root.ycb-root.ycb-enabled.ycb-hide-explore a[href="/feed/explore"] {
+/* Shorts nav entries */
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-guide-entry-renderer a[title="Shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-mini-guide-entry-renderer a[title="Shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-guide-entry-renderer a[href="/shorts"],
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-mini-guide-entry-renderer a[href="/shorts"] {
   display: none !important;
 }
 
+/* Shorts tab in search results */
+:root.ycb-root.ycb-enabled.ycb-hide-shorts yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts"]) {
+  display: none !important;
+}
+
+/* Shorts badges and links in mixed feeds */
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-video-renderer:has(a[href*="/shorts/"]),
+:root.ycb-root.ycb-enabled.ycb-hide-shorts ytd-grid-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* Block Shorts page entirely */
 :root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts ytd-app {
   visibility: hidden !important;
 }
 
-:root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts body::before,
-:root.ycb-root.ycb-enabled.ycb-hide-shorts.ycb-page-shorts html::before {
-  content: "Shorts are hidden for focus";
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-shorts.ycb-page-shorts::before {
+  content: "Shorts are hidden — use the back button or Search";
   position: fixed;
   inset: 0;
   z-index: 2147483647;
@@ -71,11 +111,39 @@
   place-items: center;
   padding: 24px;
   background: #0f0f0f;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.55);
   text-align: center;
-  font: 600 18px/1.4 Arial, sans-serif;
+  font: 500 16px/1.5 "YouTube Sans", "Roboto", Arial, sans-serif;
 }
 
+/* ── EXPLORE / TRENDING ──────────────────────────────────── */
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-guide-entry-renderer a[href="/feed/explore"],
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-mini-guide-entry-renderer a[href="/feed/explore"],
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-guide-entry-renderer a[href="/feed/trending"],
+:root.ycb-root.ycb-enabled.ycb-hide-explore ytd-mini-guide-entry-renderer a[href="/feed/trending"] {
+  display: none !important;
+}
+
+/* Block Explore page content */
+:root.ycb-root.ycb-enabled.ycb-hide-explore.ycb-page-explore ytd-browse #contents,
+:root.ycb-root.ycb-enabled.ycb-hide-explore.ycb-page-explore ytd-browse #primary {
+  display: none !important;
+}
+
+:root.ycb-root.ycb-enabled.ycb-replace-blocked.ycb-hide-explore.ycb-page-explore ytd-browse::before {
+  content: "Explore is hidden — use Search to find what you need";
+  display: block;
+  margin: 80px auto 0;
+  max-width: 420px;
+  padding: 24px 32px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  font: 500 15px/1.5 "YouTube Sans", "Roboto", Arial, sans-serif;
+}
+
+/* ── JS-HIDDEN ELEMENTS ─────────────────────────────────── */
 :root.ycb-root.ycb-enabled [data-ycb-hidden="true"] {
   display: none !important;
 }

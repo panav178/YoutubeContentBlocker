@@ -1,51 +1,68 @@
-# Chrome Web Store Copy
+# Chrome Web Store Listing
 
 ## Extension Name
 
 YouTube Content Blocker
 
-## Short Description
+## Short Description (132 chars max)
 
-Hide distracting YouTube surfaces like recommendations, Shorts, comments, and end-screen suggestions.
+Hide YouTube recommendations, Shorts, comments, and end-screen distractions. Keep search and intentional watching intact.
 
 ## Full Description
 
-YouTube Content Blocker helps you use YouTube intentionally by removing the parts of the interface most likely to pull you into distraction loops.
+YouTube Content Blocker helps you use YouTube on your terms by hiding the surfaces most likely to pull you into distraction loops.
 
-It can hide:
+**What it hides:**
+• Home feed recommendations
+• Watch-page sidebar suggestions
+• Shorts (shelves, nav entries, and the Shorts page)
+• Comments
+• End-screen cards and overlays
+• Explore / Trending
 
-- the homepage recommendation feed
-- watch-page sidebar recommendations
-- Shorts
-- comments
-- end-screen suggestions
-- Explore links
+**What it keeps:**
+• Search — find exactly what you need
+• Direct video watching — watch what you chose
+• Subscriptions — see channels you follow
 
-This extension is designed for focus, studying, deep work, and anyone who wants YouTube search and direct video access without the algorithmic rabbit hole.
+**How it works:**
+Toggle each feature on or off from the extension popup. Settings sync across your Chrome profile and apply instantly — no page refresh needed in most cases.
 
-## Privacy
+**Built for focus:**
+Whether you're studying, working, or just want to stop doom-scrolling, this extension puts you back in control of your YouTube experience.
 
-Suggested privacy statement:
+**Privacy first:**
+No data collection, no analytics, no network requests. Your settings are saved locally in Chrome. That's it.
 
-> YouTube Content Blocker does not collect, store, or transmit personal data. It only saves your extension settings locally through Chrome storage so your preferences persist across sessions.
+**Open source:**
+View the source code on GitHub: https://github.com/panav178/YoutubeContentBlocker
 
-## Listing Assets To Prepare
+## Category
 
-- 1280x800 screenshot of homepage feed hidden
-- 1280x800 screenshot of watch page with sidebar and comments hidden
-- 1280x800 screenshot of popup toggles
-- 440x280 promo tile if you want a more polished listing
+Productivity
 
-## Launch Post Draft
+## Language
 
-I built a lightweight Chrome extension that removes the most distracting parts of YouTube:
+English
 
-- home feed
-- recommendations
-- Shorts
-- comments
-- end-screen suggestions
+## Privacy Policy URL
 
-You can still watch what you intentionally search for.
+https://github.com/panav178/YoutubeContentBlocker/blob/main/PRIVACY.md
 
-Free beta: [GitHub or store link]
+## Privacy Disclosure
+
+This extension does not collect or transmit any user data. It uses the Chrome storage API solely to persist user preferences (toggle settings). No analytics, no tracking, no network requests.
+
+### Single Purpose Description
+
+This extension hides distracting YouTube interface elements (recommendations, Shorts, comments, end-screen suggestions) to help users focus on intentional video watching and searching.
+
+### Permission Justifications
+
+- **storage**: Required to save and restore the user's toggle preferences across browser sessions.
+- **Host permission (youtube.com)**: Required to inject the content script that hides distracting YouTube UI elements on YouTube pages.
+
+## Support / Contact
+
+For support or bug reports, open an issue on GitHub:
+https://github.com/panav178/YoutubeContentBlocker/issues

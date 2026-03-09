@@ -11,16 +11,24 @@ const DEFAULT_SETTINGS = {
 
 const settingKeys = Object.keys(DEFAULT_SETTINGS);
 
+function syncMasterState(enabled) {
+  const section = document.getElementById("optionsSection");
+  if (section) {
+    section.classList.toggle("popup__options--disabled", !enabled);
+  }
+}
+
 async function loadSettings() {
   const settings = await chrome.storage.sync.get(DEFAULT_SETTINGS);
 
   settingKeys.forEach((key) => {
     const input = document.getElementById(key);
-
     if (input) {
       input.checked = Boolean(settings[key]);
     }
   });
+
+  syncMasterState(settings.enabled);
 }
 
 async function saveSetting(key, value) {
@@ -30,13 +38,14 @@ async function saveSetting(key, value) {
 function attachListeners() {
   settingKeys.forEach((key) => {
     const input = document.getElementById(key);
-
-    if (!input) {
-      return;
-    }
+    if (!input) return;
 
     input.addEventListener("change", () => {
       saveSetting(key, input.checked);
+
+      if (key === "enabled") {
+        syncMasterState(input.checked);
+      }
     });
   });
 }

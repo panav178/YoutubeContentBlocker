@@ -1,61 +1,82 @@
 # YouTube Content Blocker
 
-A minimal Chrome extension that hides the most distracting parts of YouTube so you can use it intentionally instead of getting pulled into recommendations.
+A lightweight Chrome extension that hides the most distracting parts of YouTube so you can watch intentionally instead of getting pulled into recommendation loops.
 
-## What It Hides
+> **One-liner:** Remove recommendations, Shorts, comments, and other distraction surfaces from YouTube — keep search and intentional watching intact.
 
-- Home feed / recommended videos on the homepage
-- Watch-page sidebar recommendations
-- Shorts shelves and most Shorts entry points
-- Comments
-- End-screen suggestions
-- Explore links
+## What It Blocks
 
-## Stack
+| Surface | Default |
+|---------|---------|
+| Home feed / recommendations | Hidden |
+| Watch-page sidebar suggestions | Hidden |
+| Shorts (shelves, nav, page) | Hidden |
+| Comments | Hidden |
+| End-screen cards & overlays | Hidden |
+| Explore / Trending | Hidden |
 
-- Manifest V3
-- Plain JavaScript
-- Plain CSS
-- No backend
-- No framework
+Every feature can be toggled individually from the extension popup.
 
-## Local Install
+## Install
 
-1. Open `chrome://extensions`
-2. Turn on `Developer mode`
-3. Click `Load unpacked`
-4. Select this project folder
-5. Open YouTube and test the toggle options from the extension popup
+### From Chrome Web Store
+
+*Coming soon.*
+
+### Manual Install (Developer Mode)
+
+1. Download or clone this repository
+2. Open `chrome://extensions` in Chrome
+3. Enable **Developer mode** (top-right toggle)
+4. Click **Load unpacked**
+5. Select the project folder
+6. Open YouTube — distractions are hidden immediately
+
+## How It Works
+
+- **No backend.** Everything runs locally in your browser.
+- **No data collection.** Settings are saved via Chrome's sync storage so they follow your Chrome profile.
+- **Manifest V3.** Built on the latest Chrome extension platform.
+- **Plain JavaScript + CSS.** Zero dependencies, fast, and lightweight.
+
+The extension applies CSS class flags to the page and uses a `MutationObserver` to handle YouTube's SPA navigation without requiring page refreshes.
+
+## Screenshots
+
+| Home (hidden) | Watch page (clean) | Popup |
+|:---:|:---:|:---:|
+| ![Home feed hidden](docs/screenshots/home-hidden.png) | ![Watch page clean](docs/screenshots/watch-clean.png) | ![Popup toggles](docs/screenshots/popup.png) |
 
 ## Packaging
 
-For a quick release zip:
+```bash
+bash scripts/package-extension.sh
+```
 
-1. Copy the project into a clean folder if you want to exclude docs
-2. Zip the extension files
-3. Upload that zip to a GitHub release or Chrome Web Store submission flow
+Creates `dist/youtube-content-blocker.zip` ready for Chrome Web Store upload or GitHub release.
 
-Typical files to include:
+## Privacy
 
-- `manifest.json`
-- `src/`
-- `popup/`
+YouTube Content Blocker does **not** collect, store, or transmit any personal data. It only saves your toggle preferences locally through Chrome's built-in storage API. No analytics, no tracking, no network requests.
 
-## Recommended Ship Sequence
+See [PRIVACY.md](PRIVACY.md) for the full privacy statement.
 
-1. Test locally in Chrome
-2. Push to GitHub
-3. Create a GitHub release with a zip
-4. Post a short demo on X/Twitter
-5. Submit the same package to the Chrome Web Store
+## Tech Stack
 
-## Positioning
+- Chrome Extension Manifest V3
+- Plain JavaScript (no framework)
+- Plain CSS
+- No backend, no build step, no dependencies
 
-Suggested one-liner:
+## Contributing
 
-> A lightweight YouTube productivity blocker that removes recommendations, Shorts, comments, and other distraction loops while keeping search and intentional watching intact.
+Found a broken selector or YouTube UI change? PRs are welcome.
 
-## Notes
+1. Fork the repo
+2. Create a feature branch
+3. Test locally in Chrome
+4. Submit a pull request
 
-- YouTube changes its DOM often, so selectors may need maintenance over time.
-- Some hidden UI may need a refresh on already-open tabs after changing settings.
+## License
+
+MIT
